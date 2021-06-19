@@ -46,8 +46,8 @@ let rooms = [
 ]
 
 let guests = [
-    1,
     2,
+    3,
     7
 ]
 
@@ -80,7 +80,6 @@ let photos = [
     'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg', 
     'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg', 
     'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'
-
 ]
 
 let lat = [
@@ -109,6 +108,6 @@ const createAd = function () {
 
 
 
-let createSimilarOffer = () => new Array(3).fill(null).map(() => createAd());
+let createSimilarOffer = () => new Array(1).fill(null).map(() => createAd());
 
 export {createAd, createSimilarOffer}

@@ -1,12 +1,13 @@
 import {createSimilarOffer} from './data.js';
 
 const popupTemplate = document.querySelector('#card').content;
+const popup = popupTemplate.querySelector('.popup');
 const createdPopup = createSimilarOffer();
 
 
 
 createdPopup.forEach((value) => {
-  const clonedPopup = popupTemplate.cloneNode(true);
+  const clonedPopup = popup.cloneNode(true);
 
   const popupTitle = clonedPopup.querySelector('.popup__title');
   popupTitle.textContent = value.offer.title;
@@ -50,11 +51,12 @@ createdPopup.forEach((value) => {
     delete value.offer.description;
   }
 
-  const popupPhotos = clonedPopup.querySelector('.popup__photos');
+  const popupPhotos = clonedPopup.querySelector('.popup__photo');
   popupPhotos.src = value.offer.photos;
-
+  console.log(popupPhotos.src)
   const popupAvatar = clonedPopup.querySelector('.popup__avatar');
   popupAvatar.src = value.author
+  console.log(popupAvatar.src)
   
   const mapCanvas = document.querySelector('#map-canvas')
   mapCanvas.appendChild(clonedPopup);
