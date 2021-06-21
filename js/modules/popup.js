@@ -53,14 +53,14 @@ createdPopup.forEach((value) => {
 
   const popupPhotos = clonedPopup.querySelector('.popup__photo');
   popupPhotos.src = value.offer.photos;
-  console.log(popupPhotos.src)
+  
   const popupAvatar = clonedPopup.querySelector('.popup__avatar');
   popupAvatar.src = value.author
-  console.log(popupAvatar.src)
+  
   
   const mapCanvas = document.querySelector('#map-canvas')
   mapCanvas.appendChild(clonedPopup);
-  console.log(mapCanvas)
+  
 });
 
 
