@@ -19,17 +19,27 @@ createdPopup.forEach((value) => {
   popupPrice.textContent = value.offer.price + ' ₽/ночь';
 
   const popupType = clonedPopup.querySelector('.popup__type');
-  popupType.textContent = value.offer.type 
-  if (popupType.textContent === 'palace') {
-    popupType.textContent = 'Дворцец'
-  } else if (popupType.textContent === 'bungalow')
-  {popupType.textContent = 'Бунгало'} 
-  else if (popupType.textContent === 'house')
-  {popupType.textContent = 'Дом';}
-  else if (popupType.textContent === 'flat')
-  { popupType.textContent = 'Квартира'}
-  else {popupType.textContent = 'Отель'}
+  popupType.textContent = value.offer.type;
   
+  switch (popupType.textContent) {
+    case 'palace':
+      popupType.textContent = 'Дворцец';
+      break;
+
+    case 'bungalow':
+      popupType.textContent = 'Бунгало';
+      break;
+
+    case 'house':
+      popupType.textContent = 'Дом';
+      break;
+
+    case 'flat':
+      popupType.textContent = 'Квартира';
+      break;
+    default:
+      popupType.textContent = 'Отель';
+  }
 
   const popupRoomsAndGuests = clonedPopup.querySelector('.popup__text--capacity');
   if(value.offer.rooms === 1 && value.offer.guests === 1) {
@@ -57,11 +67,6 @@ createdPopup.forEach((value) => {
   const popupAvatar = clonedPopup.querySelector('.popup__avatar');
   popupAvatar.src = value.author
   
-  
   const mapCanvas = document.querySelector('#map-canvas')
   mapCanvas.appendChild(clonedPopup);
-  
 });
-
-
-  
