@@ -102,7 +102,7 @@ const createAd = function () {
     return {
         author: avatar[randomAuthorIndex],
         offer: {title: getRandomArrayElement(title), address: getRandomArrayElement(address), price: getRandomArrayElement(price), type: getRandomArrayElement(type), rooms: getRandomArrayElement(rooms), guests: getRandomArrayElement(guests),  checkin: getRandomArrayElement(checkin), checkout: getRandomArrayElement(checkout), features: getRandomArrayElement(features), description: getRandomArrayElement(description), photos: getRandomArrayElement(photos)},
-        location: [randomLatScope, randomLngScope]
+        location: [randomLatScope , randomLngScope]
     }
 }
 
