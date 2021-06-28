@@ -4,6 +4,8 @@ const selectGuests = adForm.querySelector('#capacity');
 const selectTimeIn = adForm.querySelector('#timein');
 const selectTimeOut = adForm.querySelector('#timeout');
 
+
+
 //Зависимость количества комнат от количества жильцов
 selectRooms.addEventListener('change', (evt) => {
 

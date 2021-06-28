@@ -19,9 +19,9 @@ let title = [
 ]
 
 let address = [
-    "60.09450 30.34917",
-    "60.89053 30.56941",
-    "60.30929 30.23388",
+    "35.65000 139.70056",
+    "35.70000 139.70002",
+    "35.65450 139.70045",
 ]
 
 let price = [
@@ -102,12 +102,12 @@ const createAd = function () {
     return {
         author: avatar[randomAuthorIndex],
         offer: {title: getRandomArrayElement(title), address: getRandomArrayElement(address), price: getRandomArrayElement(price), type: getRandomArrayElement(type), rooms: getRandomArrayElement(rooms), guests: getRandomArrayElement(guests),  checkin: getRandomArrayElement(checkin), checkout: getRandomArrayElement(checkout), features: getRandomArrayElement(features), description: getRandomArrayElement(description), photos: getRandomArrayElement(photos)},
-        location: randomLatScope + ' ' + randomLngScope 
+        location: [randomLatScope, randomLngScope]
     }
 }
 
 
 
-let createSimilarOffer = () => new Array(1).fill(null).map(() => createAd());
+let createSimilarOffer = () => new Array(3).fill(null).map(() => createAd());
 
 export {createAd, createSimilarOffer}
