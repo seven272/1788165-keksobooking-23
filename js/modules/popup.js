@@ -1,12 +1,15 @@
 import {createSimilarOffer} from './data.js';
 
+
 const popupTemplate = document.querySelector('#card').content;
 const popup = popupTemplate.querySelector('.popup');
 const createdPopup = createSimilarOffer();
 
 
+let getArrayOffers = function() {
+  const clonedPopup = popup.cloneNode(true);
 
-createdPopup.forEach((value) => {
+  createdPopup.forEach((value) => {
   const clonedPopup = popup.cloneNode(true);
 
   const popupTitle = clonedPopup.querySelector('.popup__title');
@@ -66,7 +69,18 @@ createdPopup.forEach((value) => {
   
   const popupAvatar = clonedPopup.querySelector('.popup__avatar');
   popupAvatar.src = value.author
-  
-  const mapCanvas = document.querySelector('#map-canvas')
+
+
+  const mapCanvas = document.querySelector('.footer__copyright')
   mapCanvas.appendChild(clonedPopup);
-});
+ 
+    })
+    
+    return clonedPopup;
+   
+};
+
+getArrayOffers()
+
+
+export {getArrayOffers}
