@@ -1,7 +1,8 @@
-import {getArrayOffers} from './popup.js';
+import {setArrayOffers} from './popup.js';
 import {createSimilarOffer} from './data.js';
 const arrayMarkers = createSimilarOffer();
-const arrayPoints = getArrayOffers();
+//const arrayPoints = setArrayOffers(similarOffers);
+// const arrayPoints = setArrayOffers();
 
 
 const adForm = document.querySelector('.ad-form');
@@ -123,11 +124,13 @@ const regularPinMarker = L.marker(
 );
 regularPinMarker.addTo(map);
 
-arrayMarkers.forEach((point) => {
+
+const offersForMap = (points) => {
+  points.forEach((point) => {
 
   const marker = L.marker({
-    lat: point.location[0],
-    lng: point.location[1],
+    lat: point.location.lat,
+    lng: point.location.lng,
   },
   {
     draggable: true,
@@ -135,7 +138,7 @@ arrayMarkers.forEach((point) => {
   });
   marker.addTo(markerGroup)
     .bindPopup(`
-    <img src="${point.author}" class="popup__avatar" width="70" height="70" alt="Аватар пользователя">
+    <img src="${point.author.avatar}" class="popup__avatar" width="70" height="70" alt="Аватар пользователя">
     <h3 class="popup__title">${point.offer.title}</h3>
     <p class="popup__text popup__text--address">${point.offer.address}</p>
     <p class="popup__text popup__text--price">${point.offer.price} <span>₽/ночь</span></p>
@@ -152,7 +155,7 @@ arrayMarkers.forEach((point) => {
     </ul>
     <p class="popup__description">${point.offer.description}</p>  
     <div class="popup__photos">
-        <img src="${point.offer.photos}" class="popup__photo" width="45" height="40" alt="Фотография жилья">
+        <img src="${point.offer.photos[0]}" class="popup__photo" width="45" height="40" alt="Фотография жилья">
       </div>
     `,
     {
@@ -161,32 +164,7 @@ arrayMarkers.forEach((point) => {
     );
 
 });
-
-
-// const createMapPin = (points) => {
-//   points.forEach((point) => {
-//     const { location } = point;
-//     const marker = L.marker(
-//       {
-//         lat: location.lat,
-//         lng: location.lng,
-//       },
-//       {
-//         icon: PinIcon,
-//       },
-//     );
-
-//     marker
-//       .addTo(layerGroup)
-//       .bindPopup(() => renderCard(point),
-//         {
-//           keepInView: true,
-//         },
-//       );
-//   });
-
-// }
-
+}
 
 //функции по добавлению слоя на карту и его удалению
 const layerGroup = L.layerGroup().addTo(map);
@@ -194,6 +172,7 @@ const removeMapPin = () => {
   layerGroup.clearLayers();
 
 };
+
 //Возвращаем маркер и карту в исходное положение
 
 map.addEventListener('click', () => {
@@ -207,3 +186,5 @@ map.addEventListener('click', () => {
     lng: lngMap,
   }, zoomMap);
 });
+// offersForMap(arrayMarkers)
+export {offersForMap};

@@ -1,14 +1,17 @@
-import {createSimilarOffer} from './data.js';
-
+// import {createSimilarOffer} from './data.js';
+// import {helloWorld} from '../main.js';
+// console.log(helloWorld)
 
 const popupTemplate = document.querySelector('#card').content;
 const popup = popupTemplate.querySelector('.popup');
-const createdPopup = createSimilarOffer();
+// const createdPopup = createSimilarOffer();
 
+//Обьявляем переменную в которую через DocumentFragment сложим все склонирвоанные обьявления, а потом можем вставлять их все через обращение к этой переменной
+const similarListFragment = document.createDocumentFragment();
 
-const getArrayOffers = function() {
+const setArrayOffers = function(similarOffers) {
 
-  createdPopup.forEach((value) => {
+  similarOffers.forEach((value) => {
     const clonedPopup = popup.cloneNode(true);
 
     const popupTitle = clonedPopup.querySelector('.popup__title');
@@ -56,27 +59,36 @@ const getArrayOffers = function() {
 
     const popupFeatures = clonedPopup.querySelector('.popup__features');
     popupFeatures.textContent = value.offer.features;
+    if(!value.offer.features) {
+      popupFeatures.remove();
+    }
 
     const popupDescription = clonedPopup.querySelector('.popup__description');
     popupDescription.textContent = value.offer.description;
-    if(!popupDescription.textContent) {
-      delete value.offer.description;
+    if(!value.offer.description) {
+      popupDescription.remove();
     }
 
     const popupPhotos = clonedPopup.querySelector('.popup__photo');
     popupPhotos.src = value.offer.photos;
+    if(!value.offer.photos) {
+      popupPhotos.remove();
+    }
 
     const popupAvatar = clonedPopup.querySelector('.popup__avatar');
-    popupAvatar.src = value.author;
+    popupAvatar.src = value.author.avatar;
+    if(!value.author.avatar) {
+      popupAvatar.remove();
+    }
 
+    similarListFragment.appendChild(clonedPopup);
 
-    // const mapCanvas = document.querySelector('.footer__copyright');
-    // mapCanvas.appendChild(clonedPopup);
 
   });
-
-
+  const mapCanvas = document.querySelector('.footer__copyright');
+  mapCanvas.appendChild(similarListFragment);
 };
 
+// setArrayOffers()
 
-export {getArrayOffers};
+export {setArrayOffers};

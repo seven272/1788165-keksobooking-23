@@ -109,4 +109,6 @@ const createAd = function () {
 
 const createSimilarOffer = () => new Array(3).fill(null).map(() => createAd());
 
+
+
 export {createAd, createSimilarOffer};
