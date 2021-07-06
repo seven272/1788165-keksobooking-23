@@ -3,6 +3,9 @@ const selectRooms = adForm.querySelector('#room_number');
 const selectGuests = adForm.querySelector('#capacity');
 const selectTimeIn = adForm.querySelector('#timein');
 const selectTimeOut = adForm.querySelector('#timeout');
+const formTime = adForm.querySelector('.ad-form__element--time');
+const selectType = adForm.querySelector('#type');
+const selectPrice = adForm.querySelector('#price');
 
 const successTemplate = document.querySelector('#success').content;
 const successMesage = successTemplate.querySelector('.success');
@@ -10,6 +13,13 @@ const errorTemplate = document.querySelector('#error').content;
 const errorMesage = errorTemplate.querySelector('.error');
 const mainPage = document.querySelector('main');
 
+const typeOfRealty = {
+  bungalow: '0',
+  flat: '1000',
+  hotel: '3000',
+  house: '5000',
+  palace: '10000',
+};
 
 //Зависимость количества комнат от количества жильцов
 selectRooms.addEventListener('change', (evt) => {
@@ -44,12 +54,21 @@ selectRooms.addEventListener('change', (evt) => {
 });
 
 //связываем поля время выезда и время заезда
-adForm.addEventListener('change', (evt) => {
+formTime.addEventListener('change', (evt) => {
   selectTimeIn.value = evt.target.value;
   selectTimeOut.value = evt.target.value;
 
 });
 
+
+//связываем тип жилья и минимальную цену
+const onTypeOfRealty = () => {
+  const minPrice = typeOfRealty[selectType.value];
+  selectPrice.placeholder = minPrice;
+  selectPrice.min = minPrice;
+};
+
+selectType.addEventListener('change', onTypeOfRealty);
 
 // Создание сообщения об успешной отправки обьявления и закрытие его по клику или esc
 const createSuccessMessage = function () {

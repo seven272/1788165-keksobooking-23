@@ -1,6 +1,6 @@
-import {setArrayOffers} from './popup.js';
-import {createSimilarOffer} from './data.js';
-const arrayMarkers = createSimilarOffer();
+import {makeOffer} from './popup.js';
+// import {createSimilarOffer} from './data.js';
+// const arrayMarkers = createSimilarOffer();
 //const arrayPoints = setArrayOffers(similarOffers);
 // const arrayPoints = setArrayOffers();
 
@@ -128,43 +128,23 @@ regularPinMarker.addTo(map);
 const offersForMap = (points) => {
   points.forEach((point) => {
 
-  const marker = L.marker({
-    lat: point.location.lat,
-    lng: point.location.lng,
-  },
-  {
-    draggable: true,
-    icon: regularPinIcon,
-  });
-  marker.addTo(markerGroup)
-    .bindPopup(`
-    <img src="${point.author.avatar}" class="popup__avatar" width="70" height="70" alt="Аватар пользователя">
-    <h3 class="popup__title">${point.offer.title}</h3>
-    <p class="popup__text popup__text--address">${point.offer.address}</p>
-    <p class="popup__text popup__text--price">${point.offer.price} <span>₽/ночь</span></p>
-    <h4 class="popup__type">${point.offer.type}</h4>
-    <p class="popup__text popup__text--capacity">${point.offer.rooms} комнаты для ${point.offer.guests} гостей</p>
-    <p class="popup__text popup__text--time">Заезд после ${point.offer.checkin}, выезд до ${point.offer.checkout}</p>
-    <ul class="popup__features">
-    <li class="popup__feature popup__feature--wifi">${point.offer.features}</li>
-    <li class="popup__feature popup__feature--dishwasher">${point.offer.features}</li>
-    <li class="popup__feature popup__feature--parking">${point.offer.features}</li>
-    <li class="popup__feature popup__feature--washer">${point.offer.features}</li>
-    <li class="popup__feature popup__feature--elevator">${point.offer.features}</li>
-    <li class="popup__feature popup__feature--conditioner">${point.offer.features}</li>
-    </ul>
-    <p class="popup__description">${point.offer.description}</p>  
-    <div class="popup__photos">
-        <img src="${point.offer.photos[0]}" class="popup__photo" width="45" height="40" alt="Фотография жилья">
-      </div>
-    `,
-    {
-      keepInView: true,
+    const marker = L.marker({
+      lat: point.location.lat,
+      lng: point.location.lng,
     },
-    );
+    {
+      draggable: true,
+      icon: regularPinIcon,
+    });
+    marker.addTo(markerGroup)
+      .bindPopup(() => makeOffer(point),
+        {
+          keepInView: true,
+        },
+      );
 
-});
-}
+  });
+};
 
 //функции по добавлению слоя на карту и его удалению
 const layerGroup = L.layerGroup().addTo(map);
@@ -186,5 +166,5 @@ map.addEventListener('click', () => {
     lng: lngMap,
   }, zoomMap);
 });
-// offersForMap(arrayMarkers)
+
 export {offersForMap};
