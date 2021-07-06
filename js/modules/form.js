@@ -25,6 +25,7 @@ const typeOfRealty = {
 selectRooms.addEventListener('change', (evt) => {
 
   selectRooms.value = evt.target.value;
+  
   const rooms = selectRooms.value;
   switch (rooms){
     case '1':
