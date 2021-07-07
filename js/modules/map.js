@@ -1,4 +1,6 @@
 import {makeOffer} from './popup.js';
+import {filtrationAds} from './filter.js';
+
 // import {createSimilarOffer} from './data.js';
 // const arrayMarkers = createSimilarOffer();
 //const arrayPoints = setArrayOffers(similarOffers);
@@ -126,6 +128,8 @@ regularPinMarker.addTo(map);
 
 
 const offersForMap = (points) => {
+  
+  
   points.forEach((point) => {
 
     const marker = L.marker({

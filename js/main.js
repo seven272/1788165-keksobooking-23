@@ -3,6 +3,7 @@ import './modules/util.js';
 import './modules/popup.js';
 import './modules/form.js';
 import './modules/map.js';
+import './modules/filter.js';
 import {showAlert} from './modules/util.js';
 import {offersForMap} from './modules/map.js';
 
