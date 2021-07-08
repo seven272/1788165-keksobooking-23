@@ -6,6 +6,7 @@ import './modules/map.js';
 import './modules/filter.js';
 import {showAlert} from './modules/util.js';
 import {offersForMap} from './modules/map.js';
+// import {filtrationOffers} from './modules/filter.js';
 
 const similarOfferCount = 10;
 

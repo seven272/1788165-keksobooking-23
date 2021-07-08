@@ -1,5 +1,5 @@
 import {makeOffer} from './popup.js';
-import {filtrationAds} from './filter.js';
+import {filtrationOffers} from './filter.js';
 
 // import {createSimilarOffer} from './data.js';
 // const arrayMarkers = createSimilarOffer();
@@ -107,6 +107,13 @@ mainPinMarker.on('moveend', (evt) => {
 //Создаем слой на карте
 const markerGroup = L.layerGroup().addTo(map);
 
+//Удаляем слой на карте
+const removeMapPin = () => {
+  markerGroup.clearLayers();
+
+};
+
+
 //Создаем вспомогательные точки на карте
 const regularPinIcon = L.icon ({
   iconUrl: '././img/pin.svg',
@@ -114,47 +121,43 @@ const regularPinIcon = L.icon ({
   iconAnchor: [20, 40],
 });
 
-const regularPinMarker = L.marker(
-  {
-    lat: 59.96834,
-    lng: 30.31744,
-  },
-  {
-    draggable: true,
-    icon: regularPinIcon,
-  },
-);
-regularPinMarker.addTo(map);
+// const regularPinMarker = L.marker(
+//   {
+//     lat: 59.96834,
+//     lng: 30.31744,
+//   },
+//   {
+//     draggable: true,
+//     icon: regularPinIcon,
+//   },
+// );
+// regularPinMarker.addTo(map);
 
 
 const offersForMap = (points) => {
-  
-  
-  points.forEach((point) => {
+  points
+    
+    // .filter(filtrationOffers)
+    // .slice()
 
-    const marker = L.marker({
-      lat: point.location.lat,
-      lng: point.location.lng,
-    },
-    {
-      draggable: true,
-      icon: regularPinIcon,
+    .forEach((point) => {
+
+      const marker = L.marker({
+        lat: point.location.lat,
+        lng: point.location.lng,
+      },
+      {
+        draggable: true,
+        icon: regularPinIcon,
+      });
+      marker.addTo(markerGroup)
+        .bindPopup(() => makeOffer(point),
+          {
+            keepInView: true,
+          },
+        );
+
     });
-    marker.addTo(markerGroup)
-      .bindPopup(() => makeOffer(point),
-        {
-          keepInView: true,
-        },
-      );
-
-  });
-};
-
-//функции по добавлению слоя на карту и его удалению
-const layerGroup = L.layerGroup().addTo(map);
-const removeMapPin = () => {
-  layerGroup.clearLayers();
-
 };
 
 //Возвращаем маркер и карту в исходное положение
