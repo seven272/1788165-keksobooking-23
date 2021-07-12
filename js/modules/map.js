@@ -137,8 +137,8 @@ const regularPinIcon = L.icon ({
 const offersForMap = (points) => {
   points
     
-    // .filter(filtrationOffers)
-    // .slice()
+    .filter(filtrationOffers)
+    .slice()
 
     .forEach((point) => {
 
@@ -174,4 +174,4 @@ map.addEventListener('click', () => {
   }, zoomMap);
 });
 
-export {offersForMap};
+export {offersForMap, removeMapPin};

@@ -1,3 +1,9 @@
+// import {createSimilarOffer} from './data.js';
+import {debounce} from './debounce.js';
+import {removeMapPin, offersForMap} from './map.js';
+
+// const newarray = createSimilarOffer();
+
 const mapFilters = document.querySelector('.map__filters');
 const typeFilter = mapFilters.querySelector('#housing-type');
 const priceFilter = mapFilters.querySelector('#housing-price');
@@ -5,7 +11,7 @@ const roomsFilter = mapFilters.querySelector('#housing-rooms');
 const guestsFilter = mapFilters.querySelector('#housing-guests');
 const featuresList = mapFilters.querySelectorAll('.map__checkbox');
 const DEFAULT = 'any';
-
+const maxNumberOffers = 10;
 const priceLimit = {
   low: 10000,
   high: 50000,
@@ -24,26 +30,79 @@ const filtrationPrice = (element) => {
 
 };
 
+// const filtrationFeatures = (element) => {
+//   const selectedFeatures = featuresList.querySelectorAll('input:checked');
+//   const arrayFeaturesList = Array.from(selectedFeatures).map((item) => item.value);
+
+//   return arrayFeaturesList.every((item) => element.offer.features.includes(item));
+// };
+
 const filtrationFeatures = (element) => {
-  const selectedFeatures = featuresList.querySelectorAll('input:checked');
-  const arrayFeaturesList = Array.from(selectedFeatures).map((item) => item.value);
+  if (! element.offer.features)
+  { return false; }
+  const selectedFeatures = [];
+  featuresList.forEach ((item) => {
+    if (item.checked) {
+      selectedFeatures.push (item);
+    }
+  });
+  if (! selectedFeatures.length)
+  { return false; }
+  const arrayFeaturesList = Array.from (selectedFeatures).map ((item) => item.value);
+  return arrayFeaturesList.every ((item) => element.offer.features.includes (item));
 
-  return arrayFeaturesList.every((item) => element.offer.features.includes(item));
 };
 
+// const filtrationOffers = (point) => {
+//   if (
+//     (point.offer.type === typeFilter.value || typeFilter.value === DEFAULT) ||
+//     (point.offer.rooms === +roomsFilter.value || roomsFilter.value === DEFAULT) ||
+//     (point.offer.guests === +guestsFilter.value || guestsFilter.value === DEFAULT) ||
+//     (filtrationPrice(point) || priceFilter.value === DEFAULT)
+//     &&
+//     filtrationFeatures(point)
+//   ) {
+//     return point;
+//   }
+//   return false;
+// };
 
-const filtrationOffers = (card) => {
-  if (
-    (card.offer.type === typeFilter.value || typeFilter.value === DEFAULT) &&
-    (card.offer.rooms === +roomsFilter.value || roomsFilter.value === DEFAULT) &&
-    (card.offer.guests === +guestsFilter.value || guestsFilter.value === DEFAULT) &&
-    (filtrationPrice(card) || priceFilter.value === DEFAULT) &&
-    filtrationFeatures(card)
-  ) {
-    return card;
+const filtrationOffers = (points) => {
+  const filtres = [];
+
+  for(let i = 0; i < points.length; i++) {
+    const point = points[i];
+    if (
+      (point.offer.type === typeFilter.value || typeFilter.value === DEFAULT) &&
+    (point.offer.rooms === +roomsFilter.value || roomsFilter.value === DEFAULT) &&
+    (point.offer.guests === +guestsFilter.value || guestsFilter.value === DEFAULT) &&
+    (filtrationPrice(point) || priceFilter.value === DEFAULT)
+    && filtrationFeatures(point)
+    ) {
+      filtres.push(points[i]);
+    }
+    if (filtres.length === maxNumberOffers) {
+      break;
+    }
+
   }
-  return false;
+  return filtres;
 };
 
 
-export {filtrationOffers};
+// filtrationOffers(newarray);
+
+const filtredPoints = (points) => {
+
+  const redrawPoints = () => {
+    removeMapPin();
+    offersForMap(filtrationOffers(points));
+  };
+  mapFilters.addEventListener('change', debounce (
+    (evt) => {
+      redrawPoints(evt);
+    }));
+};
+// filtredPoints();
+
+export {filtrationOffers, filtredPoints};
