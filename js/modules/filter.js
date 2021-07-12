@@ -1,8 +1,5 @@
-// import {createSimilarOffer} from './data.js';
 import {debounce} from './debounce.js';
 import {removeMapPin, offersForMap} from './map.js';
-
-// const newarray = createSimilarOffer();
 
 const mapFilters = document.querySelector('.map__filters');
 const typeFilter = mapFilters.querySelector('#housing-type');
@@ -30,12 +27,6 @@ const filtrationPrice = (element) => {
 
 };
 
-// const filtrationFeatures = (element) => {
-//   const selectedFeatures = featuresList.querySelectorAll('input:checked');
-//   const arrayFeaturesList = Array.from(selectedFeatures).map((item) => item.value);
-
-//   return arrayFeaturesList.every((item) => element.offer.features.includes(item));
-// };
 
 const filtrationFeatures = (element) => {
   if (! element.offer.features)
@@ -46,26 +37,13 @@ const filtrationFeatures = (element) => {
       selectedFeatures.push (item);
     }
   });
-  if (! selectedFeatures.length)
-  { return false; }
+  if (!selectedFeatures.length)
+  { return true; }
   const arrayFeaturesList = Array.from (selectedFeatures).map ((item) => item.value);
   return arrayFeaturesList.every ((item) => element.offer.features.includes (item));
 
 };
 
-// const filtrationOffers = (point) => {
-//   if (
-//     (point.offer.type === typeFilter.value || typeFilter.value === DEFAULT) ||
-//     (point.offer.rooms === +roomsFilter.value || roomsFilter.value === DEFAULT) ||
-//     (point.offer.guests === +guestsFilter.value || guestsFilter.value === DEFAULT) ||
-//     (filtrationPrice(point) || priceFilter.value === DEFAULT)
-//     &&
-//     filtrationFeatures(point)
-//   ) {
-//     return point;
-//   }
-//   return false;
-// };
 
 const filtrationOffers = (points) => {
   const filtres = [];
@@ -76,8 +54,8 @@ const filtrationOffers = (points) => {
       (point.offer.type === typeFilter.value || typeFilter.value === DEFAULT) &&
     (point.offer.rooms === +roomsFilter.value || roomsFilter.value === DEFAULT) &&
     (point.offer.guests === +guestsFilter.value || guestsFilter.value === DEFAULT) &&
-    (filtrationPrice(point) || priceFilter.value === DEFAULT)
-    && filtrationFeatures(point)
+    (filtrationPrice(point) || priceFilter.value === DEFAULT) &&
+    (filtrationFeatures(point))
     ) {
       filtres.push(points[i]);
     }
@@ -90,8 +68,6 @@ const filtrationOffers = (points) => {
 };
 
 
-// filtrationOffers(newarray);
-
 const filtredPoints = (points) => {
 
   const redrawPoints = () => {
@@ -103,6 +79,4 @@ const filtredPoints = (points) => {
       redrawPoints(evt);
     }));
 };
-// filtredPoints();
-
 export {filtrationOffers, filtredPoints};
