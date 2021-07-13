@@ -14,5 +14,5 @@ fetch('https://23.javascript.pages.academy/keksobooking/data')
     offersForMap(offersFromSerever.slice(0, similarOfferCount));
   })
   .catch(() =>{
-    showAlert('Не удалось загрузить данные полностью. Попробуйте еще раз.');
+    showAlert('Не удалось загрузить  данные полностью. Попробуйте еще раз.');
   });
