@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 const randomNumber = function (min, max) {
   if (min < 0) {
     return window.alert('Недопустимое значение. Введите корректоное число, которое больше нуля');
@@ -18,10 +19,6 @@ const randomNumberDecimal = function(min, max, decimalPlaces) {
 };
 
 randomNumberDecimal(12.4562566, 12.6705, 2);
-
-const randomNumberArray = function (someArray) {
-  return Math.floor(Math.random() * someArray.length);
-};
 
 const getRandomArrayElement = function (elements) {
   return elements[randomNumber(0, elements.length)];

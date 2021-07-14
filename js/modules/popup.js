@@ -1,6 +1,3 @@
-const popupTemplate = document.querySelector('#card').content;
-const popup = popupTemplate.querySelector('.popup');
-
 const typeOfRealty  = {
   house: 'Дом',
   palace: 'Дворец',
@@ -8,6 +5,9 @@ const typeOfRealty  = {
   bungalow: 'Бунгало',
   hotel: 'Отель',
 };
+
+const popupTemplate = document.querySelector('#card').content;
+const popup = popupTemplate.querySelector('.popup');
 
 //Ф-я для получения и вывода фото в попап маркера на карте
 const getPhotos = (box, images) => {

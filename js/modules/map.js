@@ -1,5 +1,11 @@
 import {makeOffer} from './popup.js';
 
+const latMap = 35.652832;
+const lngMap = 139.839478;
+const zoomMap = 10;
+const latMarker = 35.65283;
+const lngMarker = 139.83947;
+
 const adForm = document.querySelector('.ad-form');
 const selectFormElements = adForm.querySelectorAll('.ad-form__element');
 const mapForm = document.querySelector('.map__filters');
@@ -65,8 +71,8 @@ L.tileLayer(
 
 const mainPinIcon = L.icon({
   iconUrl: '././img/main-pin.svg',
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
+  iconSize: [52, 52],
+  iconAnchor: [26, 52],
 });
 
 const mainPinMarker = L.marker(
@@ -93,6 +99,13 @@ mainPinMarker.on('moveend', (evt) => {
 //Создаем слой на карте
 const markerGroup = L.layerGroup().addTo(map);
 
+//Удаляем слой на карте
+const removeMapPin = () => {
+  markerGroup.clearLayers();
+
+};
+
+
 //Создаем вспомогательные точки на карте
 const regularPinIcon = L.icon ({
   iconUrl: '././img/pin.svg',
@@ -100,45 +113,27 @@ const regularPinIcon = L.icon ({
   iconAnchor: [20, 40],
 });
 
-const regularPinMarker = L.marker(
-  {
-    lat: 59.96834,
-    lng: 30.31744,
-  },
-  {
-    draggable: true,
-    icon: regularPinIcon,
-  },
-);
-regularPinMarker.addTo(map);
-
 
 const offersForMap = (points) => {
-  points.forEach((point) => {
+  points
+    .forEach((point) => {
 
-    const marker = L.marker({
-      lat: point.location.lat,
-      lng: point.location.lng,
-    },
-    {
-      draggable: true,
-      icon: regularPinIcon,
+      const marker = L.marker({
+        lat: point.location.lat,
+        lng: point.location.lng,
+      },
+      {
+        draggable: true,
+        icon: regularPinIcon,
+      });
+      marker.addTo(markerGroup)
+        .bindPopup(() => makeOffer(point),
+          {
+            keepInView: true,
+          },
+        );
+
     });
-    marker.addTo(markerGroup)
-      .bindPopup(() => makeOffer(point),
-        {
-          keepInView: true,
-        },
-      );
-
-  });
-};
-
-//функции по добавлению слоя на карту и его удалению
-const layerGroup = L.layerGroup().addTo(map);
-const removeMapPin = () => {
-  layerGroup.clearLayers();
-
 };
 
 //Возвращаем маркер и карту в исходное положение
@@ -155,4 +150,4 @@ map.addEventListener('click', () => {
   }, zoomMap);
 });
 
-export {offersForMap};
+export {offersForMap, removeMapPin};
