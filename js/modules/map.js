@@ -1,8 +1,5 @@
 import {makeOffer} from './popup.js';
-// import {createSimilarOffer} from './data.js';
-// const arrayMarkers = createSimilarOffer();
-//const arrayPoints = setArrayOffers(similarOffers);
-// const arrayPoints = setArrayOffers();
+
 
 
 const adForm = document.querySelector('.ad-form');
@@ -12,11 +9,6 @@ const selectMapElements = mapForm.querySelectorAll('.map__filter');
 const selectMapElementsFeatures = mapForm.querySelectorAll('.map__checkbox');
 const address = document.querySelector('#address');
 
-const latMap = 35.652832;
-const lngMap = 139.839478;
-const zoomMap = 10;
-const latMarker = 35.65283;
-const lngMarker = 139.83947;
 
 
 //Функция скрытия элементов форм при неактивном режиме страницы
