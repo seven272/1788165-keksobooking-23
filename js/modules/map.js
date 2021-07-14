@@ -1,15 +1,11 @@
 import {makeOffer} from './popup.js';
 
-
-
 const adForm = document.querySelector('.ad-form');
 const selectFormElements = adForm.querySelectorAll('.ad-form__element');
 const mapForm = document.querySelector('.map__filters');
 const selectMapElements = mapForm.querySelectorAll('.map__filter');
 const selectMapElementsFeatures = mapForm.querySelectorAll('.map__checkbox');
 const address = document.querySelector('#address');
-
-
 
 //Функция скрытия элементов форм при неактивном режиме страницы
 const setNotActive = function() {
