@@ -136,6 +136,21 @@ const offersForMap = (points) => {
     });
 };
 
+//Ф-я возвращения главного маркера в исходное положение.
+
+const returnMainPinMarker = () => {
+  mainPinMarker.setLatLng({
+    lat: latMarker,
+    lng: lngMarker,
+  });
+  address.value = `${latMap.toFixed(5)  }, ${  lngMap.toFixed(5)}`;
+};
+
+// ф-я закрытия попапов маркера
+const closeMapPopup = ()=> {
+  map.closePopup();
+};
+
 //Возвращаем маркер и карту в исходное положение
 
 map.addEventListener('click', () => {
@@ -150,4 +165,4 @@ map.addEventListener('click', () => {
   }, zoomMap);
 });
 
-export {offersForMap, removeMapPin};
+export {offersForMap, removeMapPin, returnMainPinMarker, closeMapPopup};

@@ -1,15 +1,15 @@
 /* eslint-disable no-alert */
-const randomNumber = function (min, max) {
+const getRandomNumber = (min, max) => {
   if (min < 0) {
     return window.alert('Недопустимое значение. Введите корректоное число, которое больше нуля');
   }
   return Math.floor(Math.random() * (max - min) + min);
 };
 
-randomNumber(3, 15);
+getRandomNumber(3, 15);
 
 
-const randomNumberDecimal = function(min, max, decimalPlaces) {
+const getRandomNumberDecimal = (min, max, decimalPlaces) => {
   if (min < 0) {
     return window.alert('Недопустимое значение. Введите корректоное число, которое больше нуля');
   }
@@ -18,11 +18,9 @@ const randomNumberDecimal = function(min, max, decimalPlaces) {
   return ~~ (randomValue * decimalConverter) / decimalConverter;
 };
 
-randomNumberDecimal(12.4562566, 12.6705, 2);
+getRandomNumberDecimal(12.4562566, 12.6705, 2);
 
-const getRandomArrayElement = function (elements) {
-  return elements[randomNumber(0, elements.length)];
-};
+const getRandomArrayElement =  (elements) => elements[getRandomNumber(0, elements.length)];
 
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
@@ -46,4 +44,4 @@ const showAlert = (message) => {
 };
 
 
-export {randomNumber, randomNumberDecimal, getRandomArrayElement, showAlert};
+export {getRandomNumber, getRandomNumberDecimal, getRandomArrayElement, showAlert};

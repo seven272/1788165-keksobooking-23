@@ -1,19 +1,17 @@
 import {debounce} from './debounce.js';
 import {removeMapPin, offersForMap} from './map.js';
-
-const mapFilters = document.querySelector('.map__filters');
-const typeFilter = mapFilters.querySelector('#housing-type');
-const priceFilter = mapFilters.querySelector('#housing-price');
-const roomsFilter = mapFilters.querySelector('#housing-rooms');
-const guestsFilter = mapFilters.querySelector('#housing-guests');
-const featuresList = mapFilters.querySelectorAll('.map__checkbox');
 const DEFAULT = 'any';
 const maxNumberOffers = 10;
 const priceLimit = {
   low: 10000,
   high: 50000,
 };
-
+const mapFilters = document.querySelector('.map__filters');
+const typeFilter = mapFilters.querySelector('#housing-type');
+const priceFilter = mapFilters.querySelector('#housing-price');
+const roomsFilter = mapFilters.querySelector('#housing-rooms');
+const guestsFilter = mapFilters.querySelector('#housing-guests');
+const featuresList = mapFilters.querySelectorAll('.map__checkbox');
 
 const filtrationPrice = (element) => {
   switch (priceFilter.value) {
@@ -48,6 +46,7 @@ const filtrationFeatures = (element) => {
 const filtrationOffers = (points) => {
   const filtres = [];
 
+  // eslint-disable-next-line id-length
   for(let i = 0; i < points.length; i++) {
     const point = points[i];
     if (

@@ -1,4 +1,4 @@
-import {randomNumber, randomNumberDecimal, getRandomArrayElement} from './util.js';
+import {getRandomNumber, getRandomNumberDecimal, getRandomArrayElement} from './util.js';
 
 const avatar = [
   'img/avatars/user01.png',
@@ -95,9 +95,9 @@ const lng = [
 
 const createAd = function () {
 
-  const randomAuthorIndex = randomNumber(0, avatar.length);
-  const randomLatScope = randomNumberDecimal(lat[0],lat[1],5);
-  const randomLngScope = randomNumberDecimal(lng[0],lng[1],5);
+  const randomAuthorIndex = getRandomNumber(0, avatar.length);
+  const randomLatScope = getRandomNumberDecimal(lat[0],lat[1],5);
+  const randomLngScope = getRandomNumberDecimal(lng[0],lng[1],5);
 
   return {
     author: avatar[randomAuthorIndex],

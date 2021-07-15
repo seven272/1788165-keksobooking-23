@@ -1,3 +1,5 @@
+import {returnMainPinMarker, closeMapPopup, offersForMap} from './map.js';
+import {serverOffers} from '../main.js';
 const typeOfRealty = {
   bungalow: '0',
   flat: '1000',
@@ -14,6 +16,8 @@ const selectTimeOut = adForm.querySelector('#timeout');
 const formTime = adForm.querySelector('.ad-form__element--time');
 const selectType = adForm.querySelector('#type');
 const selectPrice = adForm.querySelector('#price');
+const buttonReset = adForm.querySelector('.ad-form__reset');
+const mapFilter = document.querySelector('.map__filters');
 
 const successTemplate = document.querySelector('#success').content;
 const successMesage = successTemplate.querySelector('.success');
@@ -69,7 +73,7 @@ const onTypeOfRealty = () => {
 selectType.addEventListener('change', onTypeOfRealty);
 
 // Создание сообщения об успешной отправки обьявления и закрытие его по клику или esc
-const createSuccessMessage = function () {
+const createSuccessMessage = () => {
   const successPopup = successMesage.cloneNode(true);
   document.addEventListener('click', closeClickSuccessPopupMessage);
   document.addEventListener('keydown', closeEscapeSuccessPopupMessage);
@@ -77,7 +81,7 @@ const createSuccessMessage = function () {
 
 };
 
-const closeEscapeSuccessPopupMessage = function (evt) {
+const closeEscapeSuccessPopupMessage = (evt) => {
   const popupMessage = mainPage.querySelector('.success');
 
   evt.preventDefault();
@@ -92,7 +96,7 @@ const closeEscapeSuccessPopupMessage = function (evt) {
 };
 
 
-const closeClickSuccessPopupMessage = function () {
+const closeClickSuccessPopupMessage = () => {
   const popupMessage = mainPage.querySelector('.success');
   popupMessage.remove();
   document.removeEventListener('click', closeClickSuccessPopupMessage);
@@ -100,14 +104,14 @@ const closeClickSuccessPopupMessage = function () {
 
 // Создание сообщения о неуспешной отправки обьявления и закрытие сообщения по клику или нажатию esc
 
-const createErrorMesage = function() {
+const createErrorMesage = () => {
   const errorPopup = errorMesage.cloneNode(true);
   document.addEventListener('keydown', closeEscapeErrorPopupMessage);
   document.addEventListener('click', closeClickErrorPopupMessage);
   mainPage.appendChild(errorPopup);
 };
 
-const closeEscapeErrorPopupMessage = function (evt) {
+const closeEscapeErrorPopupMessage = (evt) => {
   const errorMessage = mainPage.querySelector('.error');
 
   evt.preventDefault();
@@ -121,12 +125,33 @@ const closeEscapeErrorPopupMessage = function (evt) {
 
 };
 
-const closeClickErrorPopupMessage = function() {
+const closeClickErrorPopupMessage = () => {
   const errorMessage = mainPage.querySelector('.error');
   errorMessage.remove();
 
   document.removeEventListener('click', closeClickErrorPopupMessage);
   document.removeEventListener('keydown', closeEscapeErrorPopupMessage);
+};
+
+
+const formReset = () => {
+  adForm.reset();
+  mapFilter.reset();
+  returnMainPinMarker();
+  closeMapPopup();
+  selectPrice.placeholder = '1000';
+  offersForMap(serverOffers);
+};
+
+buttonReset.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  formReset();
+});
+
+//ф-я создания сообщения об успешной отправке обьявления и очистки формы и карты
+const createSuccessAction = () => {
+  createSuccessMessage();
+  formReset();
 };
 
 
@@ -160,4 +185,4 @@ const setOfferFormSubmit = (onSuccess, onError) => {
   });
 };
 
-setOfferFormSubmit(createSuccessMessage, createErrorMesage);
+setOfferFormSubmit(createSuccessAction, createErrorMesage);
