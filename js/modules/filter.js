@@ -1,7 +1,7 @@
 import {debounce} from './debounce.js';
 import {removeMapPin, offersForMap} from './map.js';
 const DEFAULT = 'any';
-const maxNumberOffers = 10;
+const MAX_NUMBER_OFFERS = 10;
 const priceLimit = {
   low: 10000,
   high: 50000,
@@ -58,7 +58,7 @@ const filtrationOffers = (points) => {
     ) {
       filtres.push(points[i]);
     }
-    if (filtres.length === maxNumberOffers) {
+    if (filtres.length === MAX_NUMBER_OFFERS) {
       break;
     }
 

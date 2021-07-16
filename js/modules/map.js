@@ -1,10 +1,21 @@
 import {makeOffer} from './popup.js';
 
-const latMap = 35.652832;
-const lngMap = 139.839478;
-const zoomMap = 10;
-const latMarker = 35.65283;
-const lngMarker = 139.83947;
+const LAT_MAP = 35.652832;
+const LNG_MAP = 139.839478;
+const ZOOM_MAP = 10;
+const LAT_MARKER = 35.65283;
+const LNG_MARKER = 139.83947;
+
+const BigPin = {
+  url: '././img/main-pin.svg',
+  size: [52, 52],
+  anchor: [26, 52],
+};
+const SmallPin = {
+  url: '././img/pin.svg',
+  size: [40, 40],
+  anchor: [20, 40],
+};
 
 const adForm = document.querySelector('.ad-form');
 const selectFormElements = adForm.querySelectorAll('.ad-form__element');
@@ -47,7 +58,7 @@ const setPageState = function() {
     value.disabled = false;
   });
   address.readOnly = true;
-  address.value = `${latMarker  }, ${  lngMarker}`;
+  address.value = `${LAT_MARKER  }, ${  LNG_MARKER}`;
 };
 
 
@@ -58,9 +69,9 @@ const map = L.map('map-canvas')
   })
 
   .setView({
-    lat: latMap,
-    lng: lngMap,
-  }, zoomMap);
+    lat: LAT_MAP,
+    lng: LNG_MAP,
+  }, ZOOM_MAP);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -70,15 +81,15 @@ L.tileLayer(
 ).addTo(map);
 
 const mainPinIcon = L.icon({
-  iconUrl: '././img/main-pin.svg',
-  iconSize: [52, 52],
-  iconAnchor: [26, 52],
+  iconUrl: BigPin.url,
+  iconSize: BigPin.size,
+  iconAnchor: BigPin.anchor,
 });
 
 const mainPinMarker = L.marker(
   {
-    lat: latMarker,
-    lng: lngMarker,
+    lat: LAT_MARKER,
+    lng: LNG_MARKER,
   },
   {
     draggable: true,
@@ -108,9 +119,9 @@ const removeMapPin = () => {
 
 //Создаем вспомогательные точки на карте
 const regularPinIcon = L.icon ({
-  iconUrl: '././img/pin.svg',
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
+  iconUrl: SmallPin.url,
+  iconSize: SmallPin.size,
+  iconAnchor: SmallPin.anchor,
 });
 
 
@@ -140,10 +151,10 @@ const offersForMap = (points) => {
 
 const returnMainPinMarker = () => {
   mainPinMarker.setLatLng({
-    lat: latMarker,
-    lng: lngMarker,
+    lat: LAT_MARKER,
+    lng: LNG_MARKER,
   });
-  address.value = `${latMap.toFixed(5)  }, ${  lngMap.toFixed(5)}`;
+  address.value = `${LAT_MAP.toFixed(5)  }, ${  LNG_MAP.toFixed(5)}`;
 };
 
 // ф-я закрытия попапов маркера
@@ -155,14 +166,14 @@ const closeMapPopup = ()=> {
 
 map.addEventListener('click', () => {
   mainPinMarker.setLatLng({
-    lat: latMarker,
-    lng: lngMarker,
+    lat: LAT_MARKER,
+    lng: LNG_MARKER,
   });
 
   map.setView({
-    lat: latMap,
-    lng: lngMap,
-  }, zoomMap);
+    lat: LAT_MAP,
+    lng: LNG_MAP,
+  }, ZOOM_MAP);
 });
 
 export {offersForMap, removeMapPin, returnMainPinMarker, closeMapPopup};

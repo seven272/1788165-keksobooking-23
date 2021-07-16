@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 import {returnMainPinMarker, closeMapPopup, offersForMap} from './map.js';
 import {serverOffers} from '../main.js';
 const typeOfRealty = {
@@ -75,13 +76,13 @@ selectType.addEventListener('change', onTypeOfRealty);
 // Создание сообщения об успешной отправки обьявления и закрытие его по клику или esc
 const createSuccessMessage = () => {
   const successPopup = successMesage.cloneNode(true);
-  document.addEventListener('click', closeClickSuccessPopupMessage);
-  document.addEventListener('keydown', closeEscapeSuccessPopupMessage);
+  document.addEventListener('click', onCloseClickSuccessPopupMessage);
+  document.addEventListener('keydown', onCloseEscapeSuccessPopupMessage);
   mainPage.appendChild(successPopup);
 
 };
 
-const closeEscapeSuccessPopupMessage = (evt) => {
+const onCloseEscapeSuccessPopupMessage = (evt) => {
   const popupMessage = mainPage.querySelector('.success');
 
   evt.preventDefault();
@@ -90,28 +91,29 @@ const closeEscapeSuccessPopupMessage = (evt) => {
     popupMessage.remove();
   }
 
-  document.removeEventListener('keydown', closeEscapeSuccessPopupMessage);
-  document.removeEventListener('click', closeClickSuccessPopupMessage);
+  document.removeEventListener('keydown', onCloseEscapeSuccessPopupMessage);
+  document.removeEventListener('click', onCloseClickSuccessPopupMessage);
 
 };
 
 
-const closeClickSuccessPopupMessage = () => {
+const onCloseClickSuccessPopupMessage = () => {
   const popupMessage = mainPage.querySelector('.success');
   popupMessage.remove();
-  document.removeEventListener('click', closeClickSuccessPopupMessage);
+  document.removeEventListener('click', onCloseClickSuccessPopupMessage);
 };
 
 // Создание сообщения о неуспешной отправки обьявления и закрытие сообщения по клику или нажатию esc
 
 const createErrorMesage = () => {
   const errorPopup = errorMesage.cloneNode(true);
-  document.addEventListener('keydown', closeEscapeErrorPopupMessage);
-  document.addEventListener('click', closeClickErrorPopupMessage);
+  // eslint-disable-next-line no-use-before-define
+  document.addEventListener('keydown', onCloseEscapeErrorPopupMessage);
+  document.addEventListener('click', onCloseClickErrorPopupMessage);
   mainPage.appendChild(errorPopup);
 };
 
-const closeEscapeErrorPopupMessage = (evt) => {
+const onCloseEscapeErrorPopupMessage = (evt) => {
   const errorMessage = mainPage.querySelector('.error');
 
   evt.preventDefault();
@@ -120,17 +122,17 @@ const closeEscapeErrorPopupMessage = (evt) => {
     errorMessage.remove();
   }
 
-  document.removeEventListener('keydown', closeEscapeErrorPopupMessage);
-  document.removeEventListener('click', closeClickErrorPopupMessage);
+  document.removeEventListener('keydown', onCloseEscapeErrorPopupMessage);
+  document.removeEventListener('click', onCloseClickErrorPopupMessage);
 
 };
 
-const closeClickErrorPopupMessage = () => {
+const onCloseClickErrorPopupMessage = () => {
   const errorMessage = mainPage.querySelector('.error');
   errorMessage.remove();
 
-  document.removeEventListener('click', closeClickErrorPopupMessage);
-  document.removeEventListener('keydown', closeEscapeErrorPopupMessage);
+  document.removeEventListener('click', onCloseClickErrorPopupMessage);
+  document.removeEventListener('keydown', onCloseEscapeErrorPopupMessage);
 };
 
 
@@ -175,11 +177,6 @@ const setOfferFormSubmit = (onSuccess, onError) => {
           onError();
           return response.json();
         }
-      })
-      .then((data) => {
-        // eslint-disable-next-line no-console
-        console.log('errors', data);
-
       });
 
   });
