@@ -93,9 +93,7 @@ const onCloseEscapeSuccessPopupMessage = (evt) => {
 
   document.removeEventListener('keydown', onCloseEscapeSuccessPopupMessage);
   document.removeEventListener('click', onCloseClickSuccessPopupMessage);
-
 };
-
 
 const onCloseClickSuccessPopupMessage = () => {
   const popupMessage = mainPage.querySelector('.success');
@@ -150,7 +148,7 @@ buttonReset.addEventListener('click', (evt) => {
   formReset();
 });
 
-//ф-я создания сообщения об успешной отправке обьявления и очистки формы и карты
+//ф-я создания  сообщения об успешной отправке обьявления и очистки формы и карты
 const createSuccessAction = () => {
   createSuccessMessage();
   formReset();
